@@ -9,7 +9,8 @@ To add a new city:
   5. Add a city pill to public/index.html and a badge colour to public/css/style.css.
 """
 
-PORT = 3456
+import os
+PORT = int(os.environ.get("PORT", 3456))
 CACHE_TTL = 300  # seconds — how long scraped results are reused before a live refresh
 
 HTTP_HEADERS = {
