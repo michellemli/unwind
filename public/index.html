@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Girls Just Want to Have Fun</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<!-- ── Header ─────────────────────────────────────────────────────────── -->
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">💖</div>
+      <div>
+        <div>Girls Just Want to Have Fun</div>
+        <div class="tagline">Boston · Cambridge · NYC · Jersey City · Hoboken · Newark · Pittsburgh</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <div class="status-dot" id="statusDot"></div>
+      <span class="last-updated" id="lastUpdated">—</span>
+    </div>
+  </div>
+</header>
+
+<!-- ── Hero ───────────────────────────────────────────────────────────── -->
+<div class="hero">
+  <h1>✨ Girls Just Want to Have Fun ✨</h1>
+  <p>The best things to do in Boston, Cambridge, New York City, Jersey City, Hoboken, Newark, and Pittsburgh — curated for women who want to <strong>reset, recharge, and connect</strong>.</p>
+
+  <!-- City filter pills -->
+  <div class="city-pills">
+    <button class="city-pill active" data-city="all">All Cities</button>
+    <button class="city-pill" data-city="Boston, MA">🔴 Boston, MA</button>
+    <button class="city-pill" data-city="Cambridge, MA">🟢 Cambridge, MA</button>
+    <button class="city-pill" data-city="New York City, NY">🔵 New York City, NY</button>
+    <button class="city-pill" data-city="Jersey City, NJ">🟣 Jersey City, NJ</button>
+    <button class="city-pill" data-city="Hoboken, NJ">🟤 Hoboken, NJ</button>
+    <button class="city-pill" data-city="Newark, NJ">⚫ Newark, NJ</button>
+    <button class="city-pill" data-city="Pittsburgh, PA">🟡 Pittsburgh, PA</button>
+  </div>
+</div>
+
+<!-- ── Controls bar ────────────────────────────────────────────────────── -->
+<div class="controls">
+  <div class="event-count" id="eventCount">Loading events…</div>
+  <div class="category-filters" id="categoryFilters"></div>
+</div>
+
+<!-- ── Event grid ──────────────────────────────────────────────────────── -->
+<div class="grid-container">
+  <div class="events-grid" id="eventsGrid">
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <span>Fetching events…</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── Toast ───────────────────────────────────────────────────────────── -->
+<div class="toast" id="toast"></div>
+
+<script type="module" src="/js/app.js"></script>
+</body>
+</html>
