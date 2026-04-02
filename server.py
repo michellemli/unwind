@@ -109,12 +109,15 @@ class Handler(SimpleHTTPRequestHandler):
     # ------------------------------------------------------------------
     def _send_json(self, payload: dict, status: int = 200):
         body = json.dumps(payload).encode()
-        self.send_response(status)
-        self.send_header("Content-Type", "application/json")
-        self.send_header("Content-Length", str(len(body)))
-        self._cors_headers()
-        self.end_headers()
-        self.wfile.write(body)
+        try:
+            self.send_response(status)
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Content-Length", str(len(body)))
+            self._cors_headers()
+            self.end_headers()
+            self.wfile.write(body)
+        except BrokenPipeError:
+            pass
 
     def _cors_headers(self):
         self.send_header("Access-Control-Allow-Origin", "*")
