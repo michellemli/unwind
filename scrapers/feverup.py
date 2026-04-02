@@ -37,7 +37,7 @@ import sys
 import threading
 from typing import List, Optional
 
-from config import CITY_ALIASES
+from config import resolve_city
 from scrapers.base import fetch, fmt_date, build_location
 
 MAX_EVENTS = 8
@@ -143,7 +143,7 @@ def _parse_plan(html: str, default_city: str, fallback_url: str) -> Optional[dic
     if m_img:
         img = m_img.group(1)
 
-    canonical_city = CITY_ALIASES.get(venue_city.lower()) or default_city
+    canonical_city = resolve_city(venue_city, default_city)
     location_str = build_location(venue_name, venue_city, default_city)
 
     return {

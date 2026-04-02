@@ -39,7 +39,7 @@ import sys
 from datetime import datetime, timezone
 from typing import List, Optional
 
-from config import CITY_ALIASES
+from config import CITIES, resolve_city
 from scrapers.base import fetch, fmt_date, build_location
 
 try:
@@ -138,7 +138,8 @@ def _parse_listing(listing: dict, city_key: str) -> Optional[dict]:
 
     area_name  = (ev.get("area") or {}).get("name", "")
     venue_name = (ev.get("venue") or {}).get("name", "")
-    canonical_city = CITY_ALIASES.get(area_name.lower()) or area_name
+    default_city = CITIES.get(city_key, {}).get("label", area_name)
+    canonical_city = resolve_city(area_name, default_city)
 
     location_str = build_location(venue_name, area_name, area_name or venue_name)
 

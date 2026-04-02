@@ -30,7 +30,7 @@ import re
 import sys
 from typing import List, Optional
 
-from config import CITIES, CITY_ALIASES
+from config import CITIES, resolve_city
 from scrapers.base import fetch, fmt_date
 
 MAX_EVENTS_PER_CITY = 10
@@ -108,8 +108,8 @@ def _parse_event(evt: dict, apollo: dict, city: dict) -> Optional[dict]:
         location_str = "Online"
         canonical_city = city["label"]
     else:
-        canonical_city = CITY_ALIASES.get(v_city.lower())
-        if canonical_city is None:
+        canonical_city = resolve_city(v_city, "")
+        if not canonical_city:
             return None  # venue not in a tracked city
         if v_name and v_name.lower() != "online event" and v_city:
             location_str = f"{v_name}, {v_city}"

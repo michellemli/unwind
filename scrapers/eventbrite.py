@@ -42,7 +42,7 @@ import sys
 from typing import List, Optional
 from urllib.parse import urlencode
 
-from config import CITIES, CITY_ALIASES
+from config import CITIES, resolve_city
 from scrapers.base import fetch, fmt_date, build_location
 
 MAX_EVENTS_PER_CITY    = 10
@@ -152,7 +152,7 @@ def _parse_event(item: dict, city: dict, fallback_url: str) -> Optional[dict]:
     addr = loc.get("address") or {}
     loc_name = (loc.get("name") or addr.get("streetAddress") or "").strip()
     venue_city = addr.get("addressLocality", "").strip()
-    canonical_city = CITY_ALIASES.get(venue_city.lower()) or city["label"]
+    canonical_city = resolve_city(venue_city, city["label"])
 
     location_str = build_location(loc_name, venue_city, city["label"])
 

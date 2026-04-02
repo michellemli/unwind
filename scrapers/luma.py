@@ -26,7 +26,7 @@ import json
 import sys
 from typing import List, Optional
 
-from config import CITY_ALIASES
+from config import resolve_city
 from scrapers.base import fetch, fmt_date
 
 try:
@@ -87,7 +87,7 @@ def _parse_event(wrapper: dict, default_city: str, fallback_url: str) -> Optiona
 
     geo = ev.get("geo_address_info") or {}
     venue_city = geo.get("city", "").strip()
-    canonical_city = CITY_ALIASES.get(venue_city.lower()) or default_city
+    canonical_city = resolve_city(venue_city, default_city)
 
     full_addr = geo.get("full_address", "").strip()
     if full_addr:

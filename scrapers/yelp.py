@@ -37,7 +37,7 @@ import sys
 import threading
 from typing import List, Optional
 
-from config import CITY_ALIASES
+from config import resolve_city
 from scrapers.base import fetch, fmt_date
 
 try:
@@ -152,7 +152,7 @@ def _parse_event(html: str, default_city: str, fallback_url: str) -> Optional[di
     img_tag = soup.find("meta", property="og:image")
     img = img_tag["content"] if img_tag and img_tag.get("content") else ""
 
-    canonical_city = CITY_ALIASES.get(venue_city.lower()) or default_city
+    canonical_city = resolve_city(venue_city, default_city)
     location_str = (
         f"{street}, {venue_city}" if street and venue_city
         else venue_city or default_city
