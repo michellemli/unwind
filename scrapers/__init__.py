@@ -11,7 +11,7 @@ Adding a new scraper:
 """
 
 import threading
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 from cache import Cache
 from typing import List
@@ -73,6 +73,7 @@ def scrape_all() -> List[dict]:
         t.join(timeout=25)
 
     unique = _deduplicate(results)
+    unique = _filter_date_window(unique)
     unique.sort(key=_sort_key)
     print(f"  Total unique events: {len(unique)}")
 
@@ -100,6 +101,19 @@ def invalidate_cache() -> None:
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
+def _filter_date_window(events: List[dict]) -> List[dict]:
+    today     = datetime.now(tz=timezone.utc).date()
+    cutoff    = today + timedelta(days=183)  # ~6 months
+    today_str  = today.isoformat()
+    cutoff_str = cutoff.isoformat()
+    def in_window(e):
+        iso = (e.get("date_iso") or "")[:10]
+        if not iso:
+            return True  # no date info — keep
+        return today_str <= iso <= cutoff_str
+    return [e for e in events if in_window(e)]
+
 
 def _deduplicate(events: List[dict]) -> List[dict]:
     seen: set[str] = set()
