@@ -138,7 +138,7 @@ if __name__ == "__main__":
     t.start()
 
     httpd = HTTPServer(("0.0.0.0", PORT), Handler)
-    print(f"Girls Just Want to Have Fun → http://localhost:{PORT}")
+    print(f"Girls Just Want to Unwind → http://localhost:{PORT}")
     print("Ctrl+C to stop.\n")
     try:
         httpd.serve_forever()
